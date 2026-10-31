@@ -68,3 +68,12 @@ Environment:
 - Executed targeted reconnaissance scans (`nmap`) and endpoint attack simulations across multiple internal hosts.
 - Confirmed real-time log ingestion in Splunk across all active forwarders and syslog streams (pfSense Syslog, Snort UF, and Windows UF).
 - Constructed custom SPL queries to correlate network alert triggers with host process activity.
+
+## Detection Scenarios & Threat Hunting
+
+#### Scenario 01: Network Reconnaissance
+
+- Primary Tactic (MITRE): Reconnaissance (T1046)
+- Main Log Source: Snort NIDS 
+- Detailed Documentation: docs/01-nmap-recon.md
+
