@@ -14,9 +14,11 @@ This lab showcases practical skills in:
 - Alert triage and initial incident verification
 - Correlating network sensor alerts with endpoint activity
 - Simulating adversary techniques and validating defensive visibility
+
 ## Lab Architecture
 
-<img width="816" height="765" alt="εικόνα" src="https://github.com/user-attachments/assets/2a208396-da30-440a-8a25-43774b012ec0" />
+<img width="816" height="765" alt="εικόνα" src="https://github.com/user-attachments/assets/42c564b0-b138-469e-ab3c-864f0636f20b" />
+
 	
 The lab is built around a VirtualBox network that isolates the virtual machines from the physical home network.
 
