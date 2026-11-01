@@ -73,7 +73,7 @@ Environment:
 
 #### Scenario 01: Network Reconnaissance
 
-- Primary Tactic (MITRE): Reconnaissance (T1046)
+- Primary Tactic (MITRE): Discovery (T1046)
 - Main Log Source: Snort NIDS 
 - Detailed Documentation: docs/01-nmap-recon.md
 
