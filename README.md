@@ -89,5 +89,5 @@ The internal LAN is isolated from the physical home network. pfSense has a WAN a
 
 - Primary Tactic (MITRE): Discovery (T1046)
 - Main Log Source: Snort NIDS 
-- Detailed Documentation: docs/01-nmap-recon.md
+- Detailed Documentation: [docs/01-nmap-recon.md](docs/01-nmap-recon.md)
 
