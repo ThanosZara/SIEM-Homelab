@@ -43,6 +43,7 @@ Firstly, we have to confirm log ingestion and view the raw Snort alert events ge
 
 <img width="1167" height="577" alt="εικόνα" src="https://github.com/user-attachments/assets/6d086876-f40b-4091-bb58-e42b97c16978" />
 
+
 Then, to move beyond basic log searching and extract structured threat metrics, a custom regular expression (`rex`) and statistical aggregation were executed in Splunk:
 
 <img width="1125" height="599" alt="εικόνα" src="https://github.com/user-attachments/assets/3e361ee2-d9f7-424c-a1fc-c47225c32df4" />
@@ -53,7 +54,7 @@ Thirty ports produce 50 alerts rather than 30 because Nmap retries ports that do
 
 ### Alerting
 
-###### Alert Configuration
+##### Alert Configuration
 - Alert Name: Post TCP SYN Scan Detected
 - Alert Type: Scheduled, Hourly
 - Trigger Condition: Fires when Number of Results > 0 
