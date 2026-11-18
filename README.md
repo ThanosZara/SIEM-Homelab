@@ -17,33 +17,33 @@ This lab showcases practical skills in:
 
 ## Lab Architecture
 
-<img width="676" height="758" alt="εικόνα" src="https://github.com/user-attachments/assets/dc637618-37b2-4eb0-8b8b-672b7c69f511" />
+<img width="694" height="750" alt="εικόνα" src="https://github.com/user-attachments/assets/8bdc7c05-84d3-4cde-b7ac-c49fb2ae7549" />
+
 
 	
 The internal LAN is isolated from the physical home network. pfSense has a WAN adapter for outbound connectivity (for example, to install packages), while the attacker and victim VMs only reach other networks through pfSense.
 
 #### Hosts
 
-
-| Host        | OS                      | IP             | Role                                        | Agents / Services                  |
-| ----------- | ----------------------- | -------------- | ------------------------------------------- | ---------------------------------- |
-| pfSense     | pfSense `2.9.0`         | `172.30.2.1`   | Gateway, firewall, DHCP                     | Remote syslog to Splunk            |
-| Splunk SIEM | Linux Mint `22.3`       | `172.30.2.104` | Log ingestion, search, alerting, dashboards | Splunk Enterprise                  |
-| Snort NIDS  | Ubuntu Server `24.04.5` | `172.30.2.110` | Network intrusion detection                 | Snort, Splunk Universal Forwarder  |
-| Windows 10  | Windows 10 `22H2`       | `172.30.2.103` | Victim endpoint                             | Sysmon, Splunk Universal Forwarder |
-| Kali Linux  | Kali `2024.4`           | `172.30.2.108` | Attacker                                    | Nmap and other offensive tools     |
-|             |                         |                |                                             |                                    |
-
+| Host              | OS                      | IP             | Role                                        | Agents / Services                  |
+| ----------------- | ----------------------- | -------------- | ------------------------------------------- | ---------------------------------- |
+| pfSense           | pfSense `2.9.0`         | `172.30.2.1`   | Gateway, firewall, DHCP                     | Remote syslog to Splunk            |
+| Splunk SIEM       | Linux Mint `22.3`       | `172.30.2.104` | Log ingestion, search, alerting, dashboards | Splunk Enterprise                  |
+| Snort NIDS        | Ubuntu Server `24.04.5` | `172.30.2.110` | Network intrusion detection                 | Snort, Splunk Universal Forwarder  |
+| Windows 10        | Windows 10 `22H2`       | `172.30.2.103` | Victim endpoint                             | Sysmon, Splunk Universal Forwarder |
+| Kali Linux        | Kali `2024.4`           | `172.30.2.108` | Attacker                                    | Nmap and other offensive tools     |
+| Windows Server AD | Windows Server `2025`   | `172.30.2.102` | Active Directory, Domain Controller         | Splunk Universal Forwarder         |
 
 #### VM resources
 
-| VM          | vCPU | RAM   | Disk   |
-| ----------- | ---- | ----- | ------ |
-| pfSense     | `2`  | `2GB` | `25GB` |
-| Splunk SIEM | `2`  | `3GB` | `50GB` |
-| Snort NIDS  | `2`  | `3GB` | `25GB` |
-| Windows 10  | `2`  | `3GB` | `25GB` |
-| Kali Linux  | `2`  | `2GB` | `25GB` |
+| VM                | vCPU | RAM   | Disk   |
+| ----------------- | ---- | ----- | ------ |
+| pfSense           | `2`  | `2GB` | `25GB` |
+| Splunk SIEM       | `2`  | `3GB` | `50GB` |
+| Snort NIDS        | `2`  | `3GB` | `25GB` |
+| Windows 10        | `2`  | `3GB` | `25GB` |
+| Kali Linux        | `2`  | `2GB` | `25GB` |
+| Windows Server AD | `2`  | `3GB` | `50GB` |
 
 **Host Machine**: Intel Core i5-9400F (6 Cores / 6 Threads @ 2.90GHz), 16 GB RAM, ~1.3TB SSD, Windows 10(64-bit). 
 
@@ -82,6 +82,13 @@ The internal LAN is isolated from the physical home network. pfSense has a WAN a
 - Deployed Kali Linux (`172.30.2.108`) as the offensive node.
 - Ran Nmap scans against the internal network and validated that each log source captured the activity.
 - Confirmed real-time ingestion across all three sources (pfSense syslog, Snort via UF, Windows via UF).
+
+#### 6. Windows Server Active Directory Deployment
+
+- Deployed Windows Server 2022 (`172.30.2.102`) on the internal LAN and promoted it to a Domain Controller (AD DS role), with DNS installed alongside it.
+- Pointed the Windows 10 endpoint's DNS to `172.30.2.102` and domain-joined it, so authentication events reflect a real domain account rather than a local one.
+- Installed a Splunk Universal Forwarder to ship the Security Event Log (including Kerberos authentication events, Event IDs `4768`/`4769`) over TCP 9997.
+- Verified ingestion in Splunk and confirmed domain logons from Windows 10 resolve correctly against the DC.
 
 ## Detection Scenarios
 
